@@ -3,16 +3,16 @@
 > 小胰宝（XYB）患者科普白皮书生成技能 —— 基于指南/共识 + 病友经验，产出风格统一的 DOCX 白皮书。
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Skill](https://img.shields.io/badge/WorkBuddy-Skill-%235c4a7a)](https://www.workbuddy.cn)
+[![Skill](https://img.shields.io/badge/AI_Agents-Skill-%235c4a7a)](https://github.com/opencare-skillhub/xyb-whitepaper-writer)
 
 ## 简介
 
-`xyb-whitepaper-writer` 是一个面向 WorkBuddy 的 AI 技能（Skill），把**小胰宝社区**已验证的两份白皮书（PTCD 居家照护 v0.15、血管通路 v0.3）的框架、风格、质量门禁沉淀为可复用、可适配的流水线。新主题只需提供「主题 + 资料源目录」，即可生成：
+`xyb-whitepaper-writer` 是一个面向 AI Agents 工具 的 AI 技能（Skill），把**小胰宝社区**已验证的两份白皮书（PTCD 居家照护 v0.15、血管通路 v0.3）的框架、风格、质量门禁沉淀为可复用、可适配的流水线。新主题只需提供「主题 + 资料源目录」，即可生成：
 
 - 封面（社区 logo + 标题 + 版本号）
 - 编者按 + 目录
 - 前置三页（致读者信 / 范围与边界 / 30 秒红黄绿急症卡）
-- 按主题映射的标准章节（认知弧：基础认知 → 术前 → 术后 → 日常维护 → 异常识别 → 急症应急 → 心理支持 → 医疗资源）
+- 按主题映射的标准章节（认知弧：基础认知 → 术前 → 术后 → 日常维护 → 异常识别 → 急症应急 → 旅行出行 → 心理支持 → 医疗资源）
 - 术语快速查询表
 - 可打印工具包（维护记录表 / 医护审核页 / 耗材清单 / 出院交接单 / 复诊提问卡）
 - 参考资料与版本说明
@@ -41,17 +41,17 @@ xyb-whitepaper-writer/
 
 ## AI Agent 安装与使用
 
-本技能设计为 WorkBuddy AI Agent 的自动化流水线——Agent 负责收集用户输入、调度脚本、填充内容、校验产出，用户只需用自然语言描述需求。
+本技能设计为 AI Agents 工具的自动化流水线——Agent 负责收集用户输入、调度脚本、填充内容、校验产出，用户只需用自然语言描述需求。
 
 ### 安装方式
 
-**方式一：WorkBuddy 技能市场安装（推荐）**
+**方式一：AI Agents 技能市场安装（推荐）**
 
-在 WorkBuddy 对话中直接说：
+在 AI Agents 对话中直接说：
 
 > 安装 xyb-whitepaper-writer 技能
 
-Agent 会自动从 WorkBuddy 推荐市场搜索并安装。或者通过 WorkBuddy 设置 → 技能管理 → 搜索 `xyb-whitepaper-writer` 手动安装。
+Agent 会自动从推荐市场搜索并安装。或者通过 AI Agents 设置 → 技能管理 → 搜索 `xyb-whitepaper-writer` 手动安装。
 
 **方式二：手动安装**
 
@@ -67,7 +67,7 @@ git clone git@github.com:opencare-skillhub/xyb-whitepaper-writer.git \
 
 ### 触发方式
 
-在 WorkBuddy 对话中，用自然语言描述需求即可触发，Agent 会自动加载 SKILL.md 并执行流水线。示例：
+在 AI Agents 对话中，用自然语言描述需求即可触发，Agent 会自动加载 SKILL.md 并执行流水线。示例：
 
 > 帮我生成一份"肠内营养"的白皮书，资料在 /path/to/sources 目录
 
@@ -113,7 +113,7 @@ Agent 在阶段4校验通过后自动交付，并提示用户"草稿 · 待医�
 ### 前置依赖
 
 - Python 3.10+（需 `Pillow`、`python-docx`）
-- WorkBuddy 内置 `tencent-docx` 技能（提供 `html_to_docx` 转换器）
+- AI Agents 内置 `tencent-docx` 技能（提供 `html_to_docx` 转换器）
 
 ### 1. 准备配置
 
