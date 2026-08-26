@@ -39,7 +39,76 @@ xyb-whitepaper-writer/
     └── finalize_docx.py         # 嵌图 + 分页 + 校验
 ```
 
-## 快速开始
+## AI Agent 安装与使用
+
+本技能设计为 WorkBuddy AI Agent 的自动化流水线——Agent 负责收集用户输入、调度脚本、填充内容、校验产出，用户只需用自然语言描述需求。
+
+### 安装方式
+
+**方式一：WorkBuddy 技能市场安装（推荐）**
+
+在 WorkBuddy 对话中直接说：
+
+> 安装 xyb-whitepaper-writer 技能
+
+Agent 会自动从 WorkBuddy 推荐市场搜索并安装。或者通过 WorkBuddy 设置 → 技能管理 → 搜索 `xyb-whitepaper-writer` 手动安装。
+
+**方式二：手动安装**
+
+```bash
+# 安装到用户级技能目录（全局可用）
+git clone git@github.com:opencare-skillhub/xyb-whitepaper-writer.git \
+  ~/.workbuddy/skills/xyb-whitepaper-writer
+
+# 或安装到项目级技能目录（仅当前项目可用）
+git clone git@github.com:opencare-skillhub/xyb-whitepaper-writer.git \
+  <project>/.workbuddy/skills/xyb-whitepaper-writer
+```
+
+### 触发方式
+
+在 WorkBuddy 对话中，用自然语言描述需求即可触发，Agent 会自动加载 SKILL.md 并执行流水线。示例：
+
+> 帮我生成一份"肠内营养"的白皮书，资料在 /path/to/sources 目录
+
+> 用指南和共识内容填充 PTCD 白皮书，输出文件名叫 ptcd_v2.docx
+
+触发词：白皮书、照护集、科普手册、患者手册、居家护理、指南共识汇编。
+
+### Agent 需要收集的输入
+
+Agent 加载技能后，会向用户确认以下信息（缺则用默认值，详见 `references/05_input_requirements.md`）：
+
+| 输入 | 必填 | 说明 |
+|---|---|---|
+| 主题名称 | ✅ | 如"血管通路(PICC/输液港)" |
+| 资料源目录 | ✅ | 含指南/共识/案例 `.md` 的目录 |
+| 输出目录 | 自动 | 默认 `output/<topic>_whitepaper_<date>/` |
+| 目标文件名 | 自动 | 默认从 topic 派生，如 `picc_output.docx` |
+| 副标题 / 主色 / 章节 | 可选 | 均有默认值 |
+
+### Agent 执行流程
+
+```
+用户说出需求
+    ↓
+Agent 收集输入 → 准备 config.json
+    ↓
+阶段1  读取 sources_dir 的 .md → 提取"权威依据/操作规范/病友经验"三类要点
+    ↓
+阶段2  scaffold_whitepaper.py → 生成 HTML 骨架 + finalize.json
+    ↓  Agent 逐章填充 HTML 内容（基于阶段1提取的要点）
+阶段3  (可选) make_compare_diagram.py → 对比图
+       html_to_docx convert → stage3/<target>.docx
+    ↓
+阶段4  finalize_docx.py → 嵌图 + 分页 + 校验
+    ↓
+       present_files 交付 docx
+```
+
+Agent 在阶段4校验通过后自动交付，并提示用户"草稿 · 待医护审核后发布"。
+
+## 快速开始（手动）
 
 ### 前置依赖
 
